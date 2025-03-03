@@ -7,7 +7,7 @@ function App() {
   const [packageSizes, setPackageSizes] = useState([""]);
   const [calRes, setCalRes] = useState({})
   const [errorMsg, setErrorMsg] = useState("")
-
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleTotalItemsChange = (e) => {
     const value = e.target.value;
@@ -38,7 +38,7 @@ function App() {
 
 
   const handleCalculate = () => {
-    fetch(`http://localhost:8080/calculate?totalItems=${totalItems}&packages=${packageSizes.join(',')}`).then(res => {
+    fetch(`${apiUrl}/calculate?totalItems=${totalItems}&packages=${packageSizes.join(',')}`).then(res => {
       return res.json()
     }).then(json => {
       if (json.error) {
