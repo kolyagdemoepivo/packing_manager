@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  server:
+    build: ./server
+    container_name: go-server
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+  client:
+    build: ./client/packaging-app
+    container_name: react-client
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+    depends_on:
+      - server
+
+networks:
+  app-network:
+    driver: bridge
